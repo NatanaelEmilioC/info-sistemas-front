@@ -10,7 +10,7 @@
   </div>
   <ul *ngIf="veiculos.length > 0" class="list-group">
     <li  class="list-group-item " *ngFor="let veiculo of veiculos">
-    <app-veiculo-list-item [veiculo]="veiculo" class="veiculo-item"></app-veiculo-list-item>
+    <app-veiculo-list-item [veiculo]="veiculo" class="veiculo-item" (onDeletedVeiculo)="onVeiculoDelete($event)" ></app-veiculo-list-item>
     </li>
   </ul>
 </section>

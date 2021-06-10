@@ -1,5 +1,5 @@
 export class Veiculo {
-  id: number | undefined;
+  _id: string | undefined;
   placa: string | undefined;
   chassi: string | undefined;
   renavam: string | undefined;

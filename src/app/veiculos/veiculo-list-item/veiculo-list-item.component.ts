@@ -1,5 +1,5 @@
 import { VeiculoService } from './../shared/veiculo.service';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Veiculo } from '../shared/veiculo';
 
 @Component({
@@ -10,13 +10,19 @@ import { Veiculo } from '../shared/veiculo';
 export class VeiculoListItemComponent implements OnInit {
   @Input()
   veiculo: Veiculo = new Veiculo();
+
+  @Output()
+  onDeletedVeiculo = new EventEmitter();
+
   constructor(private veiculoService: VeiculoService) { }
 
   ngOnInit(): void {
   }
 
   remove(veiculo: Veiculo){
-    if(veiculo.id)
-      this.veiculoService.delete(veiculo.id);
+    if(veiculo._id)
+      this.veiculoService.delete(veiculo._id).subscribe(() => {
+        this.onDeletedVeiculo.emit(veiculo);
+      });
   }
 }
