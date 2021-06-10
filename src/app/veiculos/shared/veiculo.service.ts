@@ -18,6 +18,34 @@ export class VeiculoService {
   constructor() { }
 
   getAll(){
-return this.veiculos;
+    return this.veiculos;
+  }
+
+  getById(id: number){
+    const veiculos = this.veiculos.find((value) => value.id == id);
+    return veiculos;
+  }
+
+  save(veiculo: Veiculo){
+    if(veiculo.id){
+      const veiculoArray = this.getById(veiculo.id);
+      veiculoArray!.ano = veiculo.ano;
+      veiculoArray!.chassi = veiculo.chassi;
+      veiculoArray!.marca = veiculo.marca;
+      veiculoArray!.modelo = veiculo.modelo;
+      veiculoArray!.placa = veiculo.placa;
+      veiculoArray!.ano = veiculo.ano;
+    }else{
+      let lastId = this.veiculos[this.veiculos.length-1].id;
+      if(lastId)
+        veiculo.id = lastId +1;
+      else
+        lastId = 1;
+      this.veiculos.push(veiculo);
+    }
+  }
+  delete(id: number){
+const veiculoIndex = this.veiculos.findIndex((value) => value.id == id);
+this.veiculos.splice(veiculoIndex, 1);
   }
 }
