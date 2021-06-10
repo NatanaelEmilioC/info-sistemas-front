@@ -1,14 +1,30 @@
-<div class="form-group form-check">
-  <input type="checkbox" class="form-check-input" name="" id="">
-</div>
-<div [innerHTML]="veiculo.placa" class="veiculo-item-placa">
-</div>
-<div>
-  <button type="button" [routerLink]="['/edit', veiculo.id]" class="btn btn-primary nr-1">Alterar
-  </button>
-</div>
-<div>
-  <button type="button" class="btn btn-danger">Deletar
+<table class="table">
+    <thead class="table-info">
+        <tr>
+            <th scope="col">Placa</th>
+            <th scope="col">Chassi</th>
+            <th scope="col">Marca</th>
+            <th scope="col">Modelo</th>
+            <th scope="col">Renavan</th>
+            <th scope="col">Ano</th>
+            <th scope="col">Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td [innerHTML]="veiculo.placa" class="veiculo-item"></td>
+          <td [innerHTML]="veiculo.chassi" class="veiculo-item"></td>
+          <td [innerHTML]="veiculo.marca" class="veiculo-item"></td>
+          <td [innerHTML]="veiculo.modelo" class="veiculo-item"></td>
+          <td [innerHTML]="veiculo.renavam" class="veiculo-item"></td>
+          <td [innerHTML]="veiculo.ano" class="veiculo-item"></td>
+          <td>
+            <div>
+              <button type="button" [routerLink]="['/edit', veiculo.id]" class="btn btn-primary nr-1">Alterar</button>
 
-  </button>
-</div>
+              <button type="button" class="btn btn-danger" (click)="remove(veiculo)">Deletar</button>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+</table>

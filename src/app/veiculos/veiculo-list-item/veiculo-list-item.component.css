@@ -1,4 +1,7 @@
 
-.veiculo-item-placa{
+.veiculo-item{
   flex-grow: 1;
+}
+.btn{
+  margin: 5px;
 }
