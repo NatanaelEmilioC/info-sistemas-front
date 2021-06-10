@@ -1,0 +1,16 @@
+<h2>Veiculos</h2>
+<hr />
+<button type="button" class="btn btn-primary nb-2" [routerLink]="['/new']">
+  Novo veiculo
+</button>
+
+<section>
+  <div *ngIf="veiculos.length == 0" class="alert alert-warning" role="alert">
+    Nenhum veículo foi encontrado.
+  </div>
+  <ul *ngIf="veiculos.length > 0" class="list-group">
+    <li  class="list-group-item " *ngFor="let veiculo of veiculos">
+    <app-veiculo-list-item [veiculo]="veiculo" class="veiculo-item"></app-veiculo-list-item>
+    </li>
+  </ul>
+</section>
