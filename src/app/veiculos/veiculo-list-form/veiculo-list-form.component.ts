@@ -8,9 +8,11 @@ import { Veiculo } from '../shared/veiculo';
   templateUrl: './veiculo-list-form.component.html',
   styleUrls: ['./veiculo-list-form.component.css']
 })
+
 export class VeiculoListFormComponent implements OnInit {
   veiculo: Veiculo | null | undefined = new Veiculo();
   title: string = 'Novo veículo';
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
@@ -20,14 +22,17 @@ export class VeiculoListFormComponent implements OnInit {
   ngOnInit(): void {
     const id = this.activatedRoute.snapshot.paramMap.get('id');
     if(id){
-      this.veiculo = this.VeiculoService.getById(parseInt(id));
-      this.title = 'Alterando veículo';
+      this.VeiculoService.getById(id).subscribe(veiculo =>{
+        this.veiculo = veiculo;
+        this.title = 'Alterando veículo';
+      });
     }
   }
   onSubmit(){
     if(this.veiculo)
-    this.VeiculoService.save(this.veiculo);
-    this.router.navigate(['']);
+    this.VeiculoService.save(this.veiculo).subscribe(_veiculo =>{
+      this.router.navigate(['']);
+    });
   }
 
 }

@@ -1,50 +1,41 @@
+import { environment } from './../../../environments/environment';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Veiculo } from './veiculo';
 
 @Injectable({
   providedIn: 'root',
 })
-export class VeiculoService {
-  veiculos: Veiculo[] = [
-    {
-      id: 1,
-      placa: 'ASM-2541',
-      chassi: '31r tU1xDM 1a 0l21525',
-      renavam: '71246088001',
-      modelo: 'Focus',
-      marca: 'Ford',
-      ano: 2020,
-    },
-  ];
 
-  constructor() {}
+export class VeiculoService {
+  constructor(private http: HttpClient) {}
 
   getAll() {
-    return this.veiculos;
+    return this.http.get<Veiculo[]>(`${ environment.api }/veiculos/readAll`);
   }
 
-  getById(id: number) {
-    const veiculos = this.veiculos.find((value) => value.id == id);
-    return veiculos;
+  getById(id: string) {
+    return this.http.get<Veiculo>(`${ environment.api }/veiculos/readById/${id}`);
   }
 
   save(veiculo: Veiculo) {
-    if (veiculo.id) {
-      const veiculoArray = this.getById(veiculo.id);
-      veiculoArray!.ano = veiculo.ano;
-      veiculoArray!.chassi = veiculo.chassi;
-      veiculoArray!.marca = veiculo.marca;
-      veiculoArray!.modelo = veiculo.modelo;
-      veiculoArray!.placa = veiculo.placa;
-      veiculoArray!.ano = veiculo.ano;
+    const veiculoBody = {
+      chassi: veiculo.chassi,
+      marca: veiculo.marca,
+      modelo: veiculo.modelo,
+      placa: veiculo.placa,
+      renavam: veiculo.renavam,
+      ano: veiculo.ano
+    };
+
+    if (veiculo._id) {
+      return this.http.put<Veiculo>(`${ environment.api }/veiculos/update/${veiculo._id}`,veiculoBody);
     } else {
-      let lastId = this.veiculos.length > 0 ? this.veiculos.length - 1 : 0;
-      veiculo.id = lastId + 1;
-      this.veiculos.push(veiculo);
+      return this.http.post<Veiculo>(`${ environment.api }/veiculos/create`, veiculoBody);
     }
   }
-  delete(id: number) {
-    const veiculoIndex = this.veiculos.findIndex((value) => value.id == id);
-    this.veiculos.splice(veiculoIndex, 1);
+
+  delete(id: string) {
+    return this.http.delete(`${ environment.api }/veiculos/delete/${id}`);
   }
 }
