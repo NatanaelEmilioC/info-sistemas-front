@@ -2,6 +2,15 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.0.3.
 
+This project works as an interface with Info Sistemas Api (Project developed during the selection process) link below:
+`https://github.com/NatanaelEmilioC/info-sistemas-api`  
+
+## Installation
+
+```bash
+$ npm install
+```
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
